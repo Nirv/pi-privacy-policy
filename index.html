@@ -2,272 +2,462 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Règles de confidentialité - Primordial Idle</title>
+    <title>Politique de Confidentialité — Primordial Idle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #080810;
+            --surface: #10101e;
+            --border: #1e1e3a;
+            --accent: #7b5cff;
+            --accent2: #c4a35a;
+            --text: #d0d0e8;
+            --muted: #6a6a8a;
+            --white: #f0efff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0e0e14;
-            color: #ffffff;
-            line-height: 1.6;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            line-height: 1.75;
+            min-height: 100vh;
         }
 
+        /* ── Background ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 40% at 20% 10%, rgba(123,92,255,.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 80% 80%, rgba(196,163,90,.07) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Header ── */
         header {
+            position: relative;
             text-align: center;
-            background: #12121a;
-            padding-bottom: 20px;
+            padding: 60px 20px 40px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            z-index: 1;
         }
 
-        header img {
-            width: 100%;
-            max-height: 220px;
-            object-fit: cover;
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
+        }
+
+        .logo-wrap {
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .logo-wrap img {
+            max-width: 200px;
+            max-height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 18px rgba(123,92,255,.4));
+        }
+
+        /* Fallback si pas d'image */
+        .logo-fallback {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            letter-spacing: .15em;
+            color: var(--accent2);
+            text-shadow: 0 0 30px rgba(196,163,90,.4);
         }
 
         header h1 {
-            margin: 15px 0 5px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px;
         }
 
-        .language-switch {
-            margin: 10px 0;
+        /* ── Lang switch ── */
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
         }
 
-        .language-switch button {
-            background: #2c7cff;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            margin: 0 5px;
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 7px 22px;
+            font-family: 'Cinzel', serif;
+            font-size: .75rem;
+            letter-spacing: .15em;
             cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 2px;
+            transition: all .25s;
         }
 
-        .language-switch button:hover {
-            background: #1b5fd6;
+        .lang-btn:hover,
+        .lang-btn.active {
+            border-color: var(--accent);
+            color: var(--white);
+            background: rgba(123,92,255,.15);
+            box-shadow: 0 0 12px rgba(123,92,255,.2);
         }
 
+        /* ── Container ── */
         .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 48px 28px 64px;
+            position: relative;
+            z-index: 1;
         }
+
+        /* ── Lang blocks ── */
+        .lang { display: none; animation: fadeIn .35s ease; }
+        .lang.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Typography ── */
+        .updated {
+            font-size: .8rem;
+            letter-spacing: .1em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .updated strong { color: var(--accent2); font-weight: 400; }
 
         h2 {
-            color: #6fa8ff;
-            margin-top: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: .95rem;
+            font-weight: 700;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin: 42px 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            flex-shrink: 0;
+        }
+
+        p { margin-bottom: 14px; font-size: .97rem; }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 14px;
+        }
+
+        ul li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: .95rem;
+        }
+
+        ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            font-size: .45rem;
+            top: 10px;
+            color: var(--accent);
+        }
+
+        /* ── Info cards ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 18px 22px;
+            margin: 14px 0;
+            font-size: .93rem;
+        }
+
+        .card.gold { border-left-color: var(--accent2); }
+
+        /* ── Contact ── */
+        .contact-link {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(123,92,255,.3);
+            transition: border-color .2s, color .2s;
+        }
+
+        .contact-link:hover {
+            color: var(--accent2);
+            border-bottom-color: var(--accent2);
+        }
+
+        /* ── Footer ── */
         footer {
             text-align: center;
-            font-size: 0.9em;
-            color: #aaaaaa;
-            padding: 20px;
+            color: var(--muted);
+            font-size: .78rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 24px 20px 36px;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
         }
 
-        .lang {
-            display: none;
-        }
-
-        .active {
+        footer::before {
+            content: '';
             display: block;
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            margin: 0 auto 16px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            header { padding: 40px 16px 30px; }
+            .container { padding: 32px 18px 48px; }
+            h2 { font-size: .82rem; }
         }
     </style>
 </head>
-
 <body>
 
 <header>
-    <!-- Remplace header.jpg par ton image -->
-    <img src="header.jpg" alt="Primordial Idle">
+    <div class="logo-wrap">
+        <!-- Remplace "header.jpg" par ton logo si tu en as un -->
+        <img src="header.jpg" alt="Primordial Idle" onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='block';">
+        <div class="logo-fallback" style="display:none;">⬡ PRIMORDIAL IDLE</div>
+    </div>
+    <h1>Privacy Policy &nbsp;/&nbsp; Politique de confidentialité</h1>
 
-    <h1>Règles de confidentialité</h1>
-
-    <div class="language-switch">
-        <button onclick="setLanguage('fr')">FR</button>
-        <button onclick="setLanguage('en')">EN</button>
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
     </div>
 </header>
 
 <div class="container">
 
-    <!-- ================= FR ================= -->
+    <!-- ══════════════ FRANÇAIS ══════════════ -->
     <div id="fr" class="lang active">
 
-        <p><strong>Dernière mise à jour :</strong> Février 2026</p>
+        <p class="updated">Dernière mise à jour : <strong>Février 2026</strong></p>
 
         <h2>Introduction</h2>
         <p>
-            Cette politique de confidentialité explique comment l’application
-            <strong>Primordial Idle</strong> traite les données des utilisateurs.
+            Cette politique de confidentialité décrit les pratiques de l'application mobile
+            <strong>Primordial Idle</strong> concernant la collecte et le traitement des données.
+            Nous nous engageons à protéger votre vie privée.
         </p>
 
-        <h2>Données collectées</h2>
+        <h2>Données collectées par l'application</h2>
+        <div class="card gold">
+            <strong>Primordial Idle ne collecte, ne stocke et ne transmet aucune donnée personnelle identifiable.</strong>
+        </div>
         <p>
-            L’application ne collecte, ne stocke et ne traite aucune donnée
-            personnelle identifiable.
-        </p>
-
-        <p>
-            Toutefois, des services tiers (comme les plateformes publicitaires)
-            peuvent collecter des données anonymes à des fins statistiques
-            et publicitaires.
+            La progression du jeu (niveau, améliorations, monnaie) est uniquement sauvegardée
+            en local sur votre appareil, dans un fichier chiffré. Ces données ne quittent jamais votre
+            appareil et ne sont accessibles par aucun serveur distant.
         </p>
 
         <h2>Services tiers</h2>
         <p>
-            L’application peut utiliser les services suivants :
+            L'application intègre les services tiers suivants, qui peuvent collecter des données
+            anonymes selon leurs propres politiques :
         </p>
         <ul>
-            <li>Google AdMob (publicités)</li>
-            <li>Services Android/Google Play</li>
+            <li><strong>Google AdMob</strong> — affichage de publicités (optionnel)</li>
+            <li><strong>Google Play Services</strong> — services de base Android</li>
         </ul>
-
+        <p>Ces services peuvent collecter de façon anonyme :</p>
+        <ul>
+            <li>Identifiants d'appareil (publicitaires)</li>
+            <li>Données de performance et de stabilité</li>
+            <li>Interactions avec les annonces</li>
+        </ul>
         <p>
-            Ces services peuvent collecter :
+            Pour plus d'informations, consultez la
+            <a class="contact-link" href="https://policies.google.com/privacy" target="_blank">politique de confidentialité de Google</a>.
         </p>
-        <ul>
-            <li>Identifiants d’appareil</li>
-            <li>Données de performance</li>
-            <li>Données liées aux annonces</li>
-        </ul>
+
+        <h2>Publicités & récompenses</h2>
+        <p>
+            L'application peut proposer le visionnage volontaire d'une annonce vidéo en échange
+            d'une récompense en monnaie du jeu. Ce visionnage est entièrement <strong>facultatif</strong>
+            et n'est jamais imposé. Aucun achat intégré n'est disponible.
+        </p>
 
         <h2>Utilisation des données</h2>
-        <p>
-            Les données collectées sont utilisées uniquement pour :
-        </p>
+        <p>Les données collectées par les services tiers sont utilisées uniquement pour :</p>
         <ul>
-            <li>Afficher des publicités</li>
-            <li>Améliorer la stabilité du jeu</li>
-            <li>Analyser les performances</li>
+            <li>Afficher des publicités ciblées ou génériques</li>
+            <li>Analyser les performances et la stabilité de l'application</li>
         </ul>
 
         <h2>Partage des données</h2>
+        <div class="card">
+            Aucune donnée personnelle n'est vendue, échangée ou partagée volontairement avec des tiers
+            par les développeurs de Primordial Idle.
+        </div>
+
+        <h2>Contenu de l'application</h2>
         <p>
-            Aucune donnée personnelle n’est vendue, échangée ou partagée
-            volontairement avec des tiers.
+            Primordial Idle ne contient aucun contenu violent, illégal, haineux, ou inapproprié.
+            Il s'agit d'un jeu idle casual destiné au grand public.
         </p>
 
         <h2>Enfants</h2>
         <p>
-            Cette application n’est pas destinée spécifiquement aux enfants
-            de moins de 13 ans.
+            Cette application n'est pas spécifiquement destinée aux enfants de moins de 13 ans.
+            Elle ne collecte délibérément aucune donnée provenant d'enfants.
         </p>
 
         <h2>Sécurité</h2>
         <p>
-            Toutes les mesures raisonnables sont mises en place afin de
-            protéger les données et garantir la sécurité de l’application.
+            Les données de jeu locales sont stockées dans un fichier chiffré sur votre appareil.
+            Des mesures raisonnables sont prises pour garantir la sécurité de l'application.
         </p>
 
         <h2>Contact</h2>
-        <p>
-            Pour toute question concernant cette politique :
-        </p>
-        <p>
-            📧 Email : <strong>contact@tonmail.com</strong>
-        </p>
+        <p>Pour toute question concernant cette politique de confidentialité :</p>
+        <p>📧 <a class="contact-link" href="mailto:contact@tonmail.com">contact@tonmail.com</a></p>
 
     </div>
 
-    <!-- ================= EN ================= -->
+    <!-- ══════════════ ENGLISH ══════════════ -->
     <div id="en" class="lang">
 
-        <p><strong>Last updated:</strong> February 2026</p>
+        <p class="updated">Last updated: <strong>February 2026</strong></p>
 
         <h2>Introduction</h2>
         <p>
-            This privacy policy explains how the
-            <strong>Primordial Idle</strong> application handles user data.
+            This privacy policy describes how the mobile application
+            <strong>Primordial Idle</strong> handles user data. We are committed to protecting your privacy.
         </p>
 
-        <h2>Data Collection</h2>
+        <h2>Data Collected by the App</h2>
+        <div class="card gold">
+            <strong>Primordial Idle does not collect, store, or transmit any personally identifiable information.</strong>
+        </div>
         <p>
-            The application does not collect, store, or process any personally
-            identifiable information.
-        </p>
-
-        <p>
-            However, third-party services (such as advertising platforms)
-            may collect anonymous data for analytics and advertising purposes.
+            Game progress (level, upgrades, currency) is saved locally on your device in an encrypted file.
+            This data never leaves your device and is not accessible by any remote server.
         </p>
 
         <h2>Third-Party Services</h2>
         <p>
-            The application may use the following services:
+            The application integrates the following third-party services, which may collect
+            anonymous data under their own privacy policies:
         </p>
         <ul>
-            <li>Google AdMob (advertising)</li>
-            <li>Google Play Services</li>
+            <li><strong>Google AdMob</strong> — ad display (optional)</li>
+            <li><strong>Google Play Services</strong> — core Android services</li>
         </ul>
-
+        <p>These services may anonymously collect:</p>
+        <ul>
+            <li>Device identifiers (advertising)</li>
+            <li>Performance and stability data</li>
+            <li>Ad interaction data</li>
+        </ul>
         <p>
-            These services may collect:
+            For more information, refer to
+            <a class="contact-link" href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.
         </p>
-        <ul>
-            <li>Device identifiers</li>
-            <li>Performance data</li>
-            <li>Advertising-related data</li>
-        </ul>
+
+        <h2>Ads & Rewards</h2>
+        <p>
+            The application may offer the option to voluntarily watch a video ad in exchange for
+            in-game currency rewards. This is entirely <strong>optional</strong> and never mandatory.
+            No in-app purchases are available.
+        </p>
 
         <h2>Use of Data</h2>
-        <p>
-            Collected data is used only to:
-        </p>
+        <p>Data collected by third-party services is used solely to:</p>
         <ul>
-            <li>Display advertisements</li>
-            <li>Improve game stability</li>
-            <li>Analyze performance</li>
+            <li>Display targeted or generic advertisements</li>
+            <li>Analyze app performance and stability</li>
         </ul>
 
         <h2>Data Sharing</h2>
+        <div class="card">
+            No personal data is sold, traded, or voluntarily shared with third parties
+            by the developers of Primordial Idle.
+        </div>
+
+        <h2>App Content</h2>
         <p>
-            No personal data is sold, traded, or voluntarily shared with third parties.
+            Primordial Idle contains no violent, illegal, hateful, or inappropriate content.
+            It is a casual idle game designed for a general audience.
         </p>
 
         <h2>Children</h2>
         <p>
-            This application is not specifically intended for children under 13.
+            This application is not specifically directed at children under the age of 13.
+            We do not knowingly collect any data from children.
         </p>
 
         <h2>Security</h2>
         <p>
-            Reasonable measures are taken to protect data and ensure application security.
+            Local game data is stored in an encrypted file on your device. Reasonable measures
+            are taken to ensure the security of the application.
         </p>
 
         <h2>Contact</h2>
-        <p>
-            For any questions regarding this policy:
-        </p>
-        <p>
-            📧 Email: <strong>contact@tonmail.com</strong>
-        </p>
+        <p>For any questions regarding this privacy policy:</p>
+        <p>📧 <a class="contact-link" href="mailto:primordialidle@gmail.com">primordialidle@gmail.com</a></p>
 
     </div>
 
 </div>
 
 <footer>
-    © 2026 - Primordial Idle
+    © 2026 Primordial Idle — All rights reserved
 </footer>
 
 <script>
-    function setLanguage(lang) {
-        document.getElementById("fr").classList.remove("active");
-        document.getElementById("en").classList.remove("active");
-
-        document.getElementById(lang).classList.add("active");
-
-        localStorage.setItem("lang", lang);
+    function setLang(lang) {
+        document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(lang).classList.add('active');
+        document.querySelector(`[onclick="setLang('${lang}')"]`).classList.add('active');
+        try { localStorage.setItem('primordial-lang', lang); } catch(e) {}
     }
 
-    // Load saved language
-    const savedLang = localStorage.getItem("lang");
-    if (savedLang) {
-        setLanguage(savedLang);
-    }
+    try {
+        const saved = localStorage.getItem('primordial-lang');
+        if (saved === 'en') setLang('en');
+    } catch(e) {}
 </script>
 
 </body>
